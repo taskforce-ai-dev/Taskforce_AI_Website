@@ -104,7 +104,7 @@ export const Blog: React.FC = () => {
           '/blog',
           t('blog.desc'),
           allPosts.slice(0, 20).map((post) => ({
-            url: `https://www.taskforceai.tech/blog/${post.slug}`,
+            url: `https://www.taskforceai.tech/blog/${post.slug}/`,
             name: post.title,
           }))
         )}
@@ -133,13 +133,16 @@ export const Blog: React.FC = () => {
               transition={{ delay: 0.1 }}
               className="mb-6"
             >
-              <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight">
+              {/* This is the blog listing's page heading — it must be the h1.
+                  It was an h2, which left /blog/ with no h1 at all. Styling is
+                  driven by the classes, so the tag change is visually inert. */}
+              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-tight">
                 AI Agents & Business Automation
-              </h2>
+              </h1>
 
-              <h3 className="text-lg md:text-2xl font-semibold text-primary-light mt-2 leading-relaxed">
+              <h2 className="text-lg md:text-2xl font-semibold text-primary-light mt-2 leading-relaxed">
                 Insights, Guides & Case Studies
-              </h3>
+              </h2>
             </motion.div>
 
           </div>

@@ -1,57 +1,321 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://taskforceai.tech</loc>
+    <loc>https://www.taskforceai.tech/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/book-demo</loc>
+    <loc>https://www.taskforceai.tech/about/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/contact</loc>
+    <loc>https://www.taskforceai.tech/contact/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/about</loc>
+    <loc>https://www.taskforceai.tech/book-demo/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/blog</loc>
+    <loc>https://www.taskforceai.tech/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/service/ai-workflows</loc>
+    <loc>https://www.taskforceai.tech/service/ai-workflows/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/service/voice-agents</loc>
+    <loc>https://www.taskforceai.tech/service/ai-voice-agents/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/service/document-processing</loc>
+    <loc>https://www.taskforceai.tech/service/ai-document-processing/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/service/business-intelligence</loc>
+    <loc>https://www.taskforceai.tech/service/business-intelligence/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/service/custom-software</loc>
+    <loc>https://www.taskforceai.tech/service/custom-ai-software/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taskforceai.tech/service/ai-micro-apps</loc>
+    <loc>https://www.taskforceai.tech/service/ai-booking-agents/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-agent-for-hotel-booking/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-assistant-company-in-colombo/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/workflow-automation-that-actually-works/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-receptionist/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-agents/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/sinhala-ai-voice-agent-taskforce-ai/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/artificial-intelligence-companies-in-sri-lanka/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/whatsapp-automation-for-business-in-sri-lanka/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-automation-for-hotels-in-sri-lanka/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-company-near-me/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/how-young-tech-talent-is-revolutionizing-ai-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/top-ai-companies-in-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/top-10-artificial-intelligence-companies-in-sri-lanka/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/why-every-sri-lankan-business-needs-an-automated-receptionist/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/call-centre-automation-sri-lanka/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/whatsapp-automation-sri-lanka/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/chatbot-for-business-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/restaurant-ai-reservation-system-sri-lanka/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/hotel-booking-software-sri-lanka/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/how-to-automate-whatsapp-replies-in-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/how-to-reduce-call-centre-costs-in-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-automation-for-sri-lankan-businesses-a-step-by-step-guide-to-integrating-ai-agents/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-automation-agents-for-businesses-in-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-booking-agent-for-hair-and-beauty-salons-in-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-automation-booking-agent-for-restaurants-in-colombo/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/the-ai-concierge-for-hotels-in-sri-lanka/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-voice-agent-sri-lanka/</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/the-future-of-voice-ai-taskforce-ais-innovative-capabilities/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/how-taskforce-ais-autonomous-agents-reduce-operational-costs/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/why-taskforce-ai-is-the-go-to-platform-for-scalable-automation/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/how-ai-agents-support-real-time-decision-making-in-enterprises/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/exploring-ai-driven-document-processing-for-compliance-and-accuracy/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-automation-agents-faq-sri-lanka/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/how-to-measure-roi-on-ai-agent-deployments/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/boost-customer-experience-with-taskforce-ai-voice-agents/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/future-trends-in-ai-automation-for-business-scalability/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/future-trends-in-ai-automation-for-business/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/enhancing-data-processing-efficiency-with-autonomous-ai/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/implimenting-arabic-voice-ai-for-business-success/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/integrating-voice-ai-into-customer-support-strategies/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/ai-driven-tools-for-automation-workflow-in-business-2026/</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/best-automation-platforms-for-operational-efficiency/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/automate-your-business-in-oman-with-ai-agents/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.taskforceai.tech/blog/automate-your-business-in-sri-lanka-in-30-days/</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

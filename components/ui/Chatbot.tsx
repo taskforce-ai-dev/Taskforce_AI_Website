@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 /* ─── Config ──────────────────────────────────────────────────────────────── */
 const AGENT_ID = 'agent_9001kpwd96apfrcvzaaeefkyz13f';
-const CONTACT_URL = 'https://taskforceai.tech/#/contact';
-const BOOK_DEMO_URL = 'https://taskforceai.tech/#/book-demo';
+const CONTACT_URL = 'https://www.taskforceai.tech/contact/';
+const BOOK_DEMO_URL = 'https://www.taskforceai.tech/book-demo/';
 const WHATSAPP_NUMBER = '94776697566';
 const WHATSAPP_MSG = 'Hello TaskForce AI';
 

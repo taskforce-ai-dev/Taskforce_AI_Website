@@ -14,6 +14,7 @@ import {
 import { SEO } from '../seo/SEO';
 import { Footer } from '../layout/Footer';
 import { BlogComments } from '../blog/BlogComments';
+import { NotFound } from './NotFound';
 import { fetchBlogPostBySlug, fetchBlogPosts, BlogListItem } from '../../lib/wordpress';
 
 // Every blog page title must end in the single canonical "- TaskForce AI".
@@ -40,7 +41,7 @@ const buildBlogTitle = (post: BlogListItem): string => {
 // BlogPosting structured data so search engines can render the article as rich
 // content (headline, image, publisher). Rendered as JSON-LD via <SEO schema>.
 const buildBlogSchema = (post: BlogListItem) => {
-  const url = `https://www.taskforceai.tech/blog/${post.slug}`;
+  const url = `https://www.taskforceai.tech/blog/${post.slug}/`;
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -81,8 +82,15 @@ export const BlogPost: React.FC = () => {
 
         const currentPost = await fetchBlogPostBySlug(slug);
 
+        // Do NOT redirect to /blog here. The .htaccess fallback already
+        // answered 200 for this URL, so bouncing to the listing leaves a
+        // soft-404: a garbage slug that returns 200 and renders real content.
+        // Falling through to the NotFound render below emits noindex instead.
         if (!currentPost) {
-          navigate('/blog');
+          if (mounted) {
+            setPost(null);
+            setLoading(false);
+          }
           return;
         }
 
@@ -178,7 +186,11 @@ export const BlogPost: React.FC = () => {
     );
   }
 
-  if (!post) return null;
+  // The .htaccess /blog/* fallback serves the SPA shell with HTTP 200 for any
+  // slug, so a post can go live between deploys without 404ing. The cost is
+  // that garbage slugs also return 200 — rendering NotFound here emits the
+  // noindex that keeps those out of the index.
+  if (!post) return <NotFound />;
 
   return (
     <div className="min-h-screen selection:bg-primary-DEFAULT selection:text-white relative">

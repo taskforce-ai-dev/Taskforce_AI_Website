@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# NOTE: /admin is deliberately NOT disallowed here. Those URLs are already in
+# the index, and a robots.txt block would stop Google fetching them — so it
+# would never see the noindex and they'd linger as URL-only entries forever.
+# They are de-indexed via `X-Robots-Tag: noindex` in .htaccess instead, which
+# Google must crawl the page to read.
+
 Sitemap: https://www.taskforceai.tech/sitemap.xml

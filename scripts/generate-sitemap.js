@@ -96,13 +96,18 @@ async function getBlogSlugs() {
 
   while (true) {
     const res = await fetchWpWithRetry(
-      `${WP_API}/posts?per_page=100&page=${page}&_fields=slug,categories`
+      `${WP_API}/posts?per_page=100&page=${page}&_fields=slug,categories,modified_gmt`
     );
     const posts = await res.json();
 
     for (const post of posts) {
       const isPublic = (post.categories || []).some((id) => publicCategoryIds.has(id));
-      if (isPublic && post.slug) slugs.push(post.slug);
+      // modified_gmt is WordPress's own last-edit timestamp, so <lastmod> is a
+      // real signal rather than "whenever we last deployed" — Google ignores (or
+      // distrusts) lastmod that moves on every build.
+      if (isPublic && post.slug) {
+        slugs.push({ slug: post.slug, lastmod: post.modified_gmt || null });
+      }
     }
 
     const totalPages = Number(res.headers.get('x-wp-totalpages') || 1);
@@ -135,21 +140,27 @@ const generateSitemap = async () => {
   }
 
   const routes = [
-    ...staticRoutes,
-    ...serviceIds.map((id) => `/service/${id}/`),
-    ...blogSlugs.map((slug) => `/blog/${slug}/`),
+    ...staticRoutes.map((path) => ({ path, lastmod: null })),
+    ...serviceIds.map((id) => ({ path: `/service/${id}/`, lastmod: null })),
+    ...blogSlugs.map(({ slug, lastmod }) => ({ path: `/blog/${slug}/`, lastmod })),
   ];
 
+  // Every <loc> MUST keep its trailing slash: that is the URL that answers 200
+  // (the slashless form 301s to it) and the one the canonical tag declares. A
+  // mismatch here puts the whole site in GSC's "Page with redirect" bucket.
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes
-    .map(
-      (route) => `  <url>
-    <loc>${DOMAIN}${route}</loc>
+    .map(({ path: route, lastmod }) => {
+      const lastmodTag = lastmod
+        ? `\n    <lastmod>${new Date(lastmod).toISOString().split('T')[0]}</lastmod>`
+        : '';
+      return `  <url>
+    <loc>${DOMAIN}${route}</loc>${lastmodTag}
     <changefreq>weekly</changefreq>
     <priority>${route === '/' ? '1.0' : '0.8'}</priority>
-  </url>`
-    )
+  </url>`;
+    })
     .join('\n')}
 </urlset>`;
 

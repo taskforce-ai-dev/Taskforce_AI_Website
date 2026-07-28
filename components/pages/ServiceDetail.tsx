@@ -226,7 +226,7 @@ export const ServiceDetail: React.FC = () => {
     '@type': 'Service',
     name: service.title,
     description: pageMeta.description,
-    url: `https://www.taskforceai.tech/service/${normalizedId}`,
+    url: `https://www.taskforceai.tech/service/${normalizedId}/`,
     provider: {
       '@type': 'Organization',
       name: 'TaskForce AI',

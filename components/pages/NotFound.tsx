@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from '@dr.pogodin/react-helmet';
 import { Home, BookOpen } from 'lucide-react';
 import { SEO } from '../seo/SEO';
 import { Footer } from '../layout/Footer';
@@ -8,10 +7,9 @@ import { Footer } from '../layout/Footer';
 export const NotFound: React.FC = () => {
   return (
     <div data-prerender="notfound" className="min-h-screen flex flex-col">
-      <SEO title="Page Not Found (404) - TaskForce AI" />
-      <Helmet>
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
+      {/* noindex is emitted by <SEO> — this page used to add a second robots
+          meta of its own, which collided with the site-wide one. */}
+      <SEO title="Page Not Found (404) - TaskForce AI" noindex />
 
       <main className="flex-1 flex items-center justify-center px-6 pt-32 pb-20">
         <div className="text-center max-w-xl">

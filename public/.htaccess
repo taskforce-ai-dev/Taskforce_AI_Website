@@ -50,4 +50,13 @@ ErrorDocument 404 /404.html
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Admin routes serve the SPA shell (see the rewrite above), so they answer 200
+  # and were getting indexed as duplicates of the homepage. They stay crawlable
+  # on purpose — robots.txt blocking them would stop Google fetching the page
+  # and it would never see this header — but they are never indexable.
+  SetEnvIf Request_URI "^/admin" TF_NOINDEX
+  # The build cache JSON is a data artifact, not a page.
+  SetEnvIf Request_URI "^/blog-cache\.json$" TF_NOINDEX
+  Header set X-Robots-Tag "noindex, nofollow" env=TF_NOINDEX
 </IfModule>

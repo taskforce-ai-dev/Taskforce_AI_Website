@@ -8,6 +8,7 @@ interface SEOProps {
   image?: string;
   url?: string;
   schema?: Record<string, unknown>; // JSON-LD structured data
+  noindex?: boolean; // Keep this page out of the index (admin, 404)
 }
 
 // Always use the live domain for SEO, so it never points to localhost
@@ -22,8 +23,14 @@ const buildCanonicalUrl = (url?: string) => {
   // Ensure the path starts with a '/' and clean it if necessary
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
 
+  // The server serves every page at its trailing-slash URL and 301s the
+  // slashless form to it, and the sitemap/prerenderer both emit trailing
+  // slashes. The canonical MUST match, or it points at a redirect and Google
+  // files the page under "Page with redirect" instead of indexing it.
+  const slashedPath = cleanPath.endsWith('/') ? cleanPath : `${cleanPath}/`;
+
   // Always prepend the live domain (to avoid localhost issues)
-  return `${SITE_URL}${cleanPath}`;
+  return `${SITE_URL}${slashedPath}`;
 };
 
 export const SEO: React.FC<SEOProps> = ({
@@ -32,6 +39,7 @@ export const SEO: React.FC<SEOProps> = ({
   keywords = 'AI Sri Lanka, AI voice agent Sri Lanka, AI automation company Sri Lanka, AI voice receptionist Sri Lanka, AI calling agent Sri Lanka, AI customer service Sri Lanka, AI companies in Sri Lanka, Artificial Intelligence companies in Sri Lanka, Intelligent Automation agents Sri Lanka',
   image = 'https://www.taskforceai.tech/logo-icon.png',  url,
   schema,
+  noindex = false,
 }) => {
   const canonicalUrl = buildCanonicalUrl(url);
 
@@ -40,7 +48,14 @@ export const SEO: React.FC<SEOProps> = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <link rel="canonical" href={canonicalUrl} />
+      <meta
+        name="robots"
+        content={noindex ? 'noindex, follow' : 'index, follow'}
+      />
+      {/* A noindex page has no canonical worth declaring — and the prerendered
+          404 would otherwise bake in a canonical for its synthetic build-time
+          path (/__not_found__). */}
+      {!noindex && <link rel="canonical" href={canonicalUrl} />}
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
