@@ -212,7 +212,7 @@ const AGENTS: Agent[] = [
     location: 'Colombo, Sri Lanka',
     description:
       'Star Properties is a Colombo-based real estate agency specialising in rentals — ' +
-      'houses, apartments and commercial buildings across the Colombo area. Amaya ' +
+      'houses and apartments across the Colombo area. Amaya ' +
       'handles inbound rental inquiries, shares availability, rates and location ' +
       'details, and arranges viewings exactly as a professional letting agent would, ' +
       '24 hours a day.',
@@ -222,7 +222,7 @@ const AGENTS: Agent[] = [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=90',
     ],
     trainedOn: [
-      'Houses, apartments & commercial units',
+      'Houses & apartments',
       'Rental rates & deposits',
       'Colombo areas & neighbourhoods',
       'Property size, layout & amenities',
@@ -241,7 +241,7 @@ const AGENTS: Agent[] = [
       },
       {
         bold: 'Act as a renter.',
-        rest: ' Tell her what you are looking for — a house, apartment or commercial space — with your preferred area and budget.',
+        rest: ' Tell her what you are looking for — a house or an apartment — with your preferred area and budget.',
       },
       {
         bold: 'Push further.',
