@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, User, ArrowRight, BookOpen, Clock } from 'lucide-react';
+import { Calendar, User, ArrowRight, BookOpen, Clock, Search, X } from 'lucide-react';
 import { Footer } from '../layout/Footer';
 import { SEO } from '../seo/SEO';
 import { collectionPageSchema } from '../../lib/schema';
@@ -30,6 +30,7 @@ export const Blog: React.FC = () => {
   const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [allPosts, setAllPosts] = useState<BlogListItem[]>([]);
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
   const [loading, setLoading] = useState(true);
@@ -75,16 +76,23 @@ export const Blog: React.FC = () => {
 
   useEffect(() => {
     setVisibleCount(POSTS_PER_PAGE);
-  }, [activeCategory]);
+  }, [activeCategory, searchQuery]);
 
   const filteredPosts = useMemo(() => {
-    if (activeCategory === 'All') return allPosts;
+    const query = searchQuery.trim().toLowerCase();
 
-    return allPosts.filter(
-      (post) =>
-        normalizeCategory(post.category) === normalizeCategory(activeCategory)
-    );
-  }, [allPosts, activeCategory]);
+    return allPosts.filter((post) => {
+      const matchesCategory =
+        activeCategory === 'All' ||
+        normalizeCategory(post.category) === normalizeCategory(activeCategory);
+      if (!matchesCategory) return false;
+
+      if (!query) return true;
+
+      const haystack = `${post.title} ${post.excerpt} ${post.category} ${post.author}`.toLowerCase();
+      return haystack.includes(query);
+    });
+  }, [allPosts, activeCategory, searchQuery]);
 
   const visiblePosts = filteredPosts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredPosts.length;
@@ -150,6 +158,29 @@ export const Blog: React.FC = () => {
 
 
         <section className="container mx-auto px-6 mb-12">
+          {/* Search bar */}
+          <div className="relative max-w-xl mb-6">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search articles…"
+              aria-label="Search articles"
+              className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-10 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-primary-DEFAULT/50 focus:bg-white/10 transition-all"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
           <div className="flex flex-wrap gap-2 md:gap-4 border-b border-white/10 pb-6">
             {CATEGORIES.map((cat) => (
               <button
@@ -199,10 +230,14 @@ export const Blog: React.FC = () => {
                 <BookOpen className="w-8 h-8 text-gray-500" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
-                {t('blog.empty.title')}
+                {searchQuery.trim() ? 'No matching articles' : t('blog.empty.title')}
               </h3>
               <p className="text-gray-400 max-w-md mx-auto mb-3">
-                {t('blog.empty.desc')}
+                {searchQuery.trim()
+                  ? `Nothing matched “${searchQuery.trim()}”${
+                      activeCategory !== 'All' ? ` in ${activeCategory}` : ''
+                    }. Try a different search.`
+                  : t('blog.empty.desc')}
               </p>
 
               <p className="text-xs text-gray-500 max-w-2xl mx-auto">
