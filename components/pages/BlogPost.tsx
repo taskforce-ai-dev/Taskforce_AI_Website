@@ -315,10 +315,17 @@ export const BlogPost: React.FC = () => {
               <h2 className="text-2xl font-bold text-white mb-8">Related Transmissions</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {relatedPosts.map((relatedPost) => (
-                  <div
+                  // Real <a href> for the same reason as the listing cards:
+                  // div+onClick gives crawlers no link to follow.
+                  <a
                     key={relatedPost.id}
-                    onClick={() => navigate(`/blog/${relatedPost.slug}`)}
-                    className="group cursor-pointer"
+                    href={`/blog/${relatedPost.slug}/`}
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                      e.preventDefault();
+                      navigate(`/blog/${relatedPost.slug}`);
+                    }}
+                    className="group cursor-pointer block"
                   >
                     <div className="aspect-video rounded-xl overflow-hidden mb-4 relative">
                       {relatedPost.image ? (
@@ -343,7 +350,7 @@ export const BlogPost: React.FC = () => {
                       <span>{relatedPost.date}</span>
                       <span>{relatedPost.readTime}</span>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>

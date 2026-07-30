@@ -21,6 +21,9 @@ export const Footer: React.FC = () => {
     { label: t('footer.links.about'), path: '/about' },
     { label: t('footer.links.blog'), path: '/blog' },
     { label: t('footer.links.contact'), path: '/contact' },
+    // /book-demo was reachable only through onClick handlers (header CTA, hero,
+    // CTA section), so it had no crawlable inbound link anywhere on the site.
+    { label: t('footer.links.book_demo'), path: '/book-demo' },
   ];
 
   const socialLinks = [

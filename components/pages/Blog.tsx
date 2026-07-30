@@ -252,16 +252,29 @@ export const Blog: React.FC = () => {
               >
                 <AnimatePresence>
                   {visiblePosts.map((post, index) => (
-                    <motion.div
+                    // A real <a href>, not a div+onClick. These cards were the
+                    // only path to the blog posts, so with no anchor every post
+                    // had zero internal links and Google knew them from the
+                    // sitemap alone -- which is how they end up "Discovered /
+                    // Crawled - currently not indexed". The href also has to
+                    // carry the trailing slash so it doesn't point at a 301.
+                    // The onClick keeps SPA navigation for plain left-clicks
+                    // while letting cmd/ctrl/middle-click open a new tab.
+                    <motion.a
                       layout
                       key={post.id}
                       data-prerender="blog-card"
+                      href={`/blog/${post.slug}/`}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3, delay: index * 0.05 }}
-                      onClick={() => navigate(`/blog/${post.slug}`)}
-                      className="cursor-pointer"
+                      onClick={(e) => {
+                        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                        e.preventDefault();
+                        navigate(`/blog/${post.slug}`);
+                      }}
+                      className="cursor-pointer block"
                     >
                       <TechPanel
                         className="h-full flex flex-col group p-0 overflow-hidden border-white/10 hover:border-primary-DEFAULT/30 rounded-2xl"
@@ -313,13 +326,16 @@ export const Blog: React.FC = () => {
                               {post.author || 'TaskForce Team'}
                             </div>
 
-                            <button className="text-primary-light hover:text-white transition-colors">
+                            {/* Decorative only — a <button> cannot nest inside
+                                the card's <a>, and the whole card is already
+                                the click target. */}
+                            <span className="text-primary-light group-hover:text-white transition-colors">
                               <ArrowRight className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-                            </button>
+                            </span>
                           </div>
                         </div>
                       </TechPanel>
-                    </motion.div>
+                    </motion.a>
                   ))}
                 </AnimatePresence>
               </motion.div>
