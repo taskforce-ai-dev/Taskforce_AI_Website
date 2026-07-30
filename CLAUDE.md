@@ -30,13 +30,40 @@ Tailwind CSS is loaded from CDN at runtime (`index.html` script tag), **not** as
 
 i18next with three locales: `en`, `ar`, `fr`. Translation files at `public/locales/{lng}/translation.json`. Arabic triggers RTL mode. The `useServicesData` hook wraps static service data with i18n translations.
 
-### Routing (HashRouter)
+### Routing (BrowserRouter)
 
-All routes use `/#/` prefix:
+Real paths, no `/#/` prefix (this doc claimed HashRouter until Jul 2026 — it was
+wrong, and the stale `taskforceai.tech/#/contact` links in `Chatbot.tsx` came
+from believing it):
 - `/` — Home (composed of section components from `components/sections/`)
 - `/service/:id` — Service detail (static data + WordPress content merged)
 - `/blog`, `/blog/:slug` — Blog listing and posts
 - `/about`, `/contact`, `/book-demo` — Static pages
+- `/admin/*` — client-side only, never prerendered, `X-Robots-Tag: noindex`
+
+### SEO invariants — do not break these
+
+Every public URL is served at its **trailing-slash** form; the slashless form
+301s to it. Three things must agree or the site falls out of the index:
+
+1. `generate-sitemap.js` `<loc>` values — trailing slash
+2. `prerender.js` `staticRoutes` / blog routes — trailing slash
+3. The `<link rel="canonical">` from `components/seo/SEO.tsx`
+
+`buildCanonicalUrl()` appends the slash centrally, so the `url` prop passed to
+`<SEO>` may omit it — but any URL built by hand (JSON-LD, share links) must
+include it. A mismatch here put 80 URLs in GSC's "Page with redirect" and
+"Redirect error" buckets between May and July 2026.
+
+`<SEO>` is the **only** place a `robots` meta may be emitted. `index.html` used
+to carry a static one too, so every page shipped two conflicting tags.
+
+**The deploy never deletes.** `.github/workflows/deploy.yml` SCPs with
+`rm: false` (required so the `wp-content/uploads` symlink survives), so any file
+ever prerendered stays live forever. Nine orphans accumulated between April and
+July 2026 — five still declaring `canonical: http://localhost:4173/`. When a
+route is renamed or removed, delete it from the docroot by hand and add a
+`[G]` (410) rule to `public/.htaccess`.
 
 ### Component Organization
 

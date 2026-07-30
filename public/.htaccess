@@ -15,6 +15,17 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^admin(/.*)?$ index.html [QSA,L]
 
+  # Permanently removed blog posts. These four were prerendered long ago and
+  # survived every deploy (the SCP step uses rm:false), so Google indexed them —
+  # some still declaring canonical http://localhost:4173/. They were cleaned off
+  # the server on 2026-07-28, but without these rules the /blog/* fallback below
+  # would answer 200 for them and the noindex would only appear once JS ran.
+  # 410 Gone is the strongest de-index signal and needs no rendering.
+  RewriteRule ^blog/hello-world/?$ - [G,L]
+  RewriteRule ^blog/talkforce-ai/?$ - [G,L]
+  RewriteRule ^blog/taskforce-ai-faq-page/?$ - [G,L]
+  RewriteRule ^blog/ai-voice-agent-sri-lanka-answer-every-call-without-hiring-a-receptionist/?$ - [G,L]
+
   # Blog routes are normally prerendered to static files. If a transient WordPress
   # outage during the build left a blog route un-prerendered, serve the SPA shell
   # so the page client-renders (WordPress is reachable from browsers) instead of
@@ -28,6 +39,7 @@
 # Unknown URLs return a proper 404 status, served as the prerendered NotFound
 # page (dist/404.html) — instead of the SPA shell with HTTP 200 (a soft 404).
 ErrorDocument 404 /404.html
+ErrorDocument 410 /404.html
 
 # Enable compression
 <IfModule mod_deflate.c>
