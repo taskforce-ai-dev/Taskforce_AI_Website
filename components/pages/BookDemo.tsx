@@ -205,13 +205,13 @@ const AGENTS: Agent[] = [
     ],
   },
   {
-    id: 'startproperty',
-    brand: 'Start Property',
+    id: 'starproperties',
+    brand: 'Star Properties',
     agentName: 'Amaya',
     role: 'Real Estate Agent',
     location: 'Colombo, Sri Lanka',
     description:
-      'Start Property is a Colombo-based real estate agency specialising in rentals — ' +
+      'Star Properties is a Colombo-based real estate agency specialising in rentals — ' +
       'houses, apartments and commercial buildings across the Colombo area. Amaya ' +
       'handles inbound rental inquiries, shares availability, rates and location ' +
       'details, and arranges viewings exactly as a professional letting agent would, ' +
@@ -232,7 +232,7 @@ const AGENTS: Agent[] = [
       'Booking a property viewing',
     ],
     langs: ['en'],
-    callLabel: 'Call Start Property',
+    callLabel: 'Call Star Properties',
     askHint: 'rentals, locations or availability',
     steps: [
       {
