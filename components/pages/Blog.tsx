@@ -31,6 +31,8 @@ export const Blog: React.FC = () => {
 
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeAuthor, setActiveAuthor] = useState('All');
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [allPosts, setAllPosts] = useState<BlogListItem[]>([]);
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
   const [loading, setLoading] = useState(true);
@@ -76,23 +78,46 @@ export const Blog: React.FC = () => {
 
   useEffect(() => {
     setVisibleCount(POSTS_PER_PAGE);
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, activeAuthor, sortOrder]);
+
+  // Unique author list for the author filter dropdown.
+  const authors = useMemo(() => {
+    const set = new Set<string>();
+    allPosts.forEach((post) => {
+      const name = (post.author || '').trim();
+      if (name) set.add(name);
+    });
+    return ['All', ...Array.from(set).sort((a, b) => a.localeCompare(b))];
+  }, [allPosts]);
 
   const filteredPosts = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
 
-    return allPosts.filter((post) => {
+    const matched = allPosts.filter((post) => {
       const matchesCategory =
         activeCategory === 'All' ||
         normalizeCategory(post.category) === normalizeCategory(activeCategory);
       if (!matchesCategory) return false;
 
-      if (!query) return true;
+      const matchesAuthor =
+        activeAuthor === 'All' || (post.author || '').trim() === activeAuthor;
+      if (!matchesAuthor) return false;
 
-      const haystack = `${post.title} ${post.excerpt} ${post.category} ${post.author}`.toLowerCase();
-      return haystack.includes(query);
+      // Search matches the TITLE only (case-insensitive).
+      if (!query) return true;
+      return (post.title || '').toLowerCase().includes(query);
     });
-  }, [allPosts, activeCategory, searchQuery]);
+
+    // Sort by publish date (fall back to the display date, then unsorted).
+    const timeOf = (post: BlogListItem) => {
+      const ms = new Date(post.datePublished || post.date || 0).getTime();
+      return Number.isNaN(ms) ? 0 : ms;
+    };
+
+    return [...matched].sort((a, b) =>
+      sortOrder === 'newest' ? timeOf(b) - timeOf(a) : timeOf(a) - timeOf(b)
+    );
+  }, [allPosts, activeCategory, searchQuery, activeAuthor, sortOrder]);
 
   const visiblePosts = filteredPosts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredPosts.length;
@@ -158,27 +183,55 @@ export const Blog: React.FC = () => {
 
 
         <section className="container mx-auto px-6 mb-12">
-          {/* Search bar */}
-          <div className="relative max-w-xl mb-6">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search articles…"
-              aria-label="Search articles"
-              className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-10 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-primary-DEFAULT/50 focus:bg-white/10 transition-all"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                aria-label="Clear search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
+          {/* Search + filters */}
+          <div className="flex flex-col md:flex-row gap-3 mb-6">
+            {/* Search by title */}
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search articles by title…"
+                aria-label="Search articles by title"
+                className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-10 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-primary-DEFAULT/50 focus:bg-white/10 transition-all"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  aria-label="Clear search"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Sort by date */}
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+              aria-label="Sort by date"
+              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-DEFAULT/50 transition-all cursor-pointer [&>option]:text-black"
+            >
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+
+            {/* Filter by author */}
+            <select
+              value={activeAuthor}
+              onChange={(e) => setActiveAuthor(e.target.value)}
+              aria-label="Filter by author"
+              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-DEFAULT/50 transition-all cursor-pointer [&>option]:text-black max-w-[16rem]"
+            >
+              {authors.map((author) => (
+                <option key={author} value={author}>
+                  {author === 'All' ? 'All authors' : author}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex flex-wrap gap-2 md:gap-4 border-b border-white/10 pb-6">
