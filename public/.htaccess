@@ -8,6 +8,16 @@
   RewriteCond %{HTTP_HOST} !^www\. [NC]
   RewriteRule ^(.*)$ https://www.taskforceai.tech/$1 [R=301,L]
 
+  # Every prerendered page is also reachable at its /index.html path, so each of
+  # the ~55 pages had a duplicate URL answering 200. Redirect the explicit
+  # filename to the directory form (the one the sitemap and canonical declare).
+  #
+  # The THE_REQUEST guard is essential: it matches only what the client actually
+  # asked for, so LiteSpeed's own internal DirectoryIndex resolution of /about/
+  # -> /about/index.html does NOT re-enter this rule. Without it this loops.
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+  RewriteRule ^(.*/)?index\.html$ /%1 [R=301,L]
+
   # Admin routes are client-side only (not prerendered) — serve the SPA shell so
   # React Router can handle them. Every other path that is not a real file/dir
   # falls through to a real 404 (see ErrorDocument below) instead of a soft 200.

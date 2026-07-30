@@ -41,3 +41,7 @@ jobs:
           target: '/home/u700742565/domains/taskforceai.tech/public_html/'
           strip_components: 1
           rm: false
+          # The 30s default is the SSH dial timeout, and it has already failed a
+          # deploy outright ("dial tcp: i/o timeout", run 30528009304) after the
+          # build had succeeded. The upload is ~130 MB to shared hosting.
+          timeout: 120s
