@@ -204,6 +204,55 @@ const AGENTS: Agent[] = [
       },
     ],
   },
+  {
+    id: 'startproperty',
+    brand: 'Start Property',
+    agentName: 'Amaya',
+    role: 'Real Estate Agent',
+    location: 'Colombo, Sri Lanka',
+    description:
+      'Start Property is a Colombo-based real estate agency specialising in rentals — ' +
+      'houses, apartments and commercial buildings across the Colombo area. Amaya ' +
+      'handles inbound rental inquiries, shares availability, rates and location ' +
+      'details, and arranges viewings exactly as a professional letting agent would, ' +
+      '24 hours a day.',
+    images: [
+      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80',
+    ],
+    trainedOn: [
+      'Houses, apartments & commercial units',
+      'Rental rates & deposits',
+      'Colombo areas & neighbourhoods',
+      'Property size, layout & amenities',
+      'Furnished / unfurnished options',
+      'Availability & viewing schedule',
+      'Lease terms & conditions',
+      'Booking a property viewing',
+    ],
+    langs: ['en'],
+    callLabel: 'Call Start Property',
+    askHint: 'rentals, locations or availability',
+    steps: [
+      {
+        bold: 'Click the demo link',
+        rest: ' and wait for the Voice Agent to answer. She will greet you as someone looking to rent a property in Colombo.',
+      },
+      {
+        bold: 'Act as a renter.',
+        rest: ' Tell her what you are looking for — a house, apartment or commercial space — with your preferred area and budget.',
+      },
+      {
+        bold: 'Push further.',
+        rest: ' Ask about availability, rent, deposit, whether it is furnished, or nearby facilities. See how she handles the details.',
+      },
+      {
+        bold: 'Reach the goal.',
+        rest: ' Watch her capture your requirements and arrange a viewing or a callback from the team.',
+      },
+    ],
+  },
 ];
 
 const langMeta = (v: Lang) => LANGS.find((l) => l.value === v) ?? LANGS[0];
