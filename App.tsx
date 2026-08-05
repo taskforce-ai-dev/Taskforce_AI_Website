@@ -71,12 +71,7 @@ function App() {
           <GlobalSpotlight />
           <TechScrollIndicator />
 
-          <AnimatePresence>
-            {isLoading && <LoadingScreen />}
-          </AnimatePresence>
-
-          {!isLoading && (
-            <>
+          <>
               <Header />
 
               <main>
@@ -120,7 +115,18 @@ function App() {
 
               <Chatbot />
             </>
-          )}
+
+          {/* Brand loading screen as a fade-out OVERLAY on top of the already-
+              rendered page, so the real content is ALWAYS in the DOM for
+              crawlers. Previously the loader replaced the content for 2.2s, so a
+              JS-rendering crawler could capture "Launching Interface… System
+              Check 100%" as the page body. LoadingScreen is fixed inset-0
+              z-[100] and opaque, so the visual is identical. Skipped during
+              prerender (isPrerender ⇒ isLoading=false), so prerendered HTML is
+              unchanged. */}
+          <AnimatePresence>
+            {isLoading && <LoadingScreen />}
+          </AnimatePresence>
         </div>
       </Router>
     </HelmetProvider>
