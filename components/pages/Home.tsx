@@ -42,6 +42,37 @@ const HOME_SCHEMA = {
       name: 'TaskForce AI',
       publisher: { '@id': 'https://www.taskforceai.tech/#organization' },
     },
+    {
+      '@type': 'LocalBusiness',
+      '@id': 'https://www.taskforceai.tech/#localbusiness',
+      name: 'TaskForce AI',
+      url: 'https://www.taskforceai.tech/',
+      image: 'https://www.taskforceai.tech/logo-icon.png',
+      logo: 'https://www.taskforceai.tech/logo-icon.png',
+      telephone: '+94-77-669-7566',
+      priceRange: '$$',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Nugegoda Business Center, Unit 37, 2nd Floor, 80 Nawala Rd',
+        addressLocality: 'Nugegoda',
+        postalCode: '10250',
+        addressCountry: 'LK',
+      },
+      // NOTE: approximate Nugegoda coordinates — replace with the exact lat/long
+      // from your Google Business Profile listing for a precise map match.
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 6.8649,
+        longitude: 79.8997,
+      },
+      areaServed: ['Sri Lanka', 'Oman', 'United Kingdom'],
+      sameAs: [
+        'https://www.linkedin.com/company/taskforceai-tech/',
+        'https://www.instagram.com/taskforce.ai.tech',
+        'https://web.facebook.com/ForcAi',
+      ],
+      parentOrganization: { '@id': 'https://www.taskforceai.tech/#organization' },
+    },
   ],
 };
 
