@@ -189,7 +189,7 @@ const formattedBlogs = blogs.map((blog: any) => ({
     {latestBlogs.map((blog) => (
       <a
         key={blog.slug}
-        href={`/blog/${blog.slug}`}
+        href={`/blog/${blog.slug}/`}
         className="group block overflow-hidden rounded-2xl border border-white/10 bg-dark-surface/60 backdrop-blur-xl hover:border-primary-DEFAULT/40 transition-all duration-300"
       >
         <div className="h-44 w-full overflow-hidden bg-white/5">
