@@ -47,7 +47,9 @@ export const SEO: React.FC<SEOProps> = ({
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
+      {/* No <meta name="keywords">: Google has ignored it since 2009 and it
+          only leaks our target terms to competitors. The `keywords` prop is
+          kept for backwards-compat but intentionally not emitted. */}
       <meta
         name="robots"
         content={noindex ? 'noindex, follow' : 'index, follow'}
