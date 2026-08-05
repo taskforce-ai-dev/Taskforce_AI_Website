@@ -11,10 +11,19 @@ const AnimatedCounter = ({ value }: { value: string }) => {
   const number = match ? parseInt(match[1], 10) : 0;
   const suffix = match ? match[2] : '';
 
-  const [displayString, setDisplayString] = useState('0');
+  // Render the REAL final value by default, so the prerendered HTML — and every
+  // Googlebot/LLM crawler snapshot — always contains the true number instead of
+  // the count-up's starting "0". The animation below is a client-only visual
+  // enhancement for real visitors; crawlers keep the final value.
+  const finalString = `${number}${suffix}`;
+  const [displayString, setDisplayString] = useState(finalString);
 
   useEffect(() => {
     if (!isInView) return;
+
+    // Never animate during prerendering: the snapshot must capture the real
+    // final value, not "0" or a random mid-animation frame.
+    if (typeof window !== 'undefined' && (window as any).__IS_PRERENDER__) return;
 
     let startTimestamp: number | null = null;
     const duration = 2000;
