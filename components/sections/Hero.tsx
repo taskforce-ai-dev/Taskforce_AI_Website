@@ -178,27 +178,26 @@ export const Hero: React.FC = () => {
   }}
   className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.1] max-w-[90vw] md:max-w-5xl mx-auto hero-main-title"
 >
-  {/* Real title in normal flow — reserves the title's final size so the
-      scramble animation can never change the <h1> height and shift the
-      content below it. Stays accessible & SEO-readable (just transparent). */}
-  <span className="block text-transparent select-none">
+  {/* The single, real H1 text — the one source of truth for SEO & a11y.
+      During prerender it is fully visible (text-white), so crawlers capture
+      ONE clean headline. For real users it is transparent: it still reserves
+      the title's final size (so the scramble can never shift the layout) while
+      the animated overlay below plays on top. */}
+  <span
+    className={`block select-none ${isPrerender ? 'text-white' : 'text-transparent'}`}
+  >
     {heroContent.title}
   </span>
 
-  {/* Visible animated layer, overlaid on top — does NOT affect layout */}
-  <span
-    aria-hidden="true"
-    className="absolute inset-0 block"
-  >
-    {isPrerender ? (
-      heroContent.title
-    ) : (
-      <ScrambleText
-        text={heroContent.title}
-        startDelay={200}
-      />
-    )}
-  </span>
+  {/* Decorative scramble overlay — real users only. It is aria-hidden and is
+      NOT rendered during prerender, so the crawled <h1> contains the title
+      exactly once (previously it was emitted twice: here AND in the span above,
+      producing the duplicated "…WorldwideWe Build…" headline). */}
+  {!isPrerender && (
+    <span aria-hidden="true" className="absolute inset-0 block">
+      <ScrambleText text={heroContent.title} startDelay={200} />
+    </span>
+  )}
 </motion.h1>
 
           {/* Subtitle */}
