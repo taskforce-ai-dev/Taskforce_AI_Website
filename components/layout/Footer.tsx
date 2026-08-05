@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
               {servicesData.map((service) => (
                 <li key={service.id}>
                   <Link
-                    to={`/service/${service.id}`}
+                    to={`/service/${service.id}/`}
                     className="text-gray-500 hover:text-white transition-colors text-xs md:text-sm block hover:translate-x-1 duration-300"
                   >
                     {service.title}
