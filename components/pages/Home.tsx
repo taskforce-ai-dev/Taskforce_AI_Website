@@ -9,41 +9,10 @@ import { Footer } from '../layout/Footer';
 import { SEO } from '../seo/SEO';
 import { toPublicMedia, sanitizeWpHtml } from '../../lib/wordpress';
 
-// Organization + WebSite structured data so search engines can resolve the brand
-// entity (name, logo, social profiles, contact) and site identity. Rendered as
-// JSON-LD via <SEO schema>. Values are the real, public brand details.
-const HOME_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': 'https://www.taskforceai.tech/#organization',
-      name: 'TaskForce AI',
-      url: 'https://www.taskforceai.tech/',
-      logo: 'https://www.taskforceai.tech/logo-icon.png',
-      description:
-        "Sri Lanka's Leading AI Automation Company. We build AI voice agents, AI call centre agents, and intelligent workflow automation for businesses in Colombo and across the Middle East.",
-      sameAs: [
-        'https://www.linkedin.com/company/taskforceai-tech/',
-        'https://www.instagram.com/taskforce.ai.tech',
-      ],
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+94-77-669-7566',
-        contactType: 'customer service',
-        areaServed: ['LK', 'AE'],
-        availableLanguage: ['en', 'ar', 'fr'],
-      },
-    },
-    {
-      '@type': 'WebSite',
-      '@id': 'https://www.taskforceai.tech/#website',
-      url: 'https://www.taskforceai.tech/',
-      name: 'TaskForce AI',
-      publisher: { '@id': 'https://www.taskforceai.tech/#organization' },
-    },
-  ],
-};
+// Site-wide Organization / LocalBusiness / WebSite JSON-LD now lives in
+// index.html <head> (identical on every route), so the homepage no longer emits
+// its own Organization/WebSite graph — doing so here would duplicate the same
+// @id nodes. Per-page schema for other routes is still handled by <SEO>.
 
 export const Home: React.FC = () => {
   const [seoCards, setSeoCards] = useState<string[]>([]);
@@ -123,7 +92,7 @@ const formattedBlogs = blogs.map((blog: any) => ({
 
   return (
     <div className="min-h-screen overflow-x-hidden selection:bg-primary-DEFAULT selection:text-white relative">
-      <SEO schema={HOME_SCHEMA} />
+      <SEO />
 
       <div className="relative z-10">
         {/* 1. Hero */}

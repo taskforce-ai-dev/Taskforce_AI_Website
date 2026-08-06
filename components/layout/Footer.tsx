@@ -64,6 +64,14 @@ export const Footer: React.FC = () => {
               {t('footer.description')}
             </p>
 
+            {/* Business address (NAP) on every page — local-SEO signal that
+                matches the LocalBusiness schema in index.html. */}
+            <address className="not-italic text-gray-500 text-sm leading-relaxed mb-6 md:mb-8 max-w-sm">
+              Nugegoda Business Centre, Unit 37, 2nd Floor,
+              <br />
+              80 Nawala Road, Nugegoda 10250
+            </address>
+
             <div className="flex gap-3">
               {socialLinks.map(({ label, url, icon: Icon }) => (
                 <a
