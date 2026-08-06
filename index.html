@@ -16,6 +16,101 @@
     <meta name="author" content="TaskForce AI">
     <meta property="og:site_name" content="TaskForce AI" />
 
+    <!--
+      Site-wide Organization + LocalBusiness + WebSite structured data. This is a
+      genuine site-wide default (identical on every route), so it lives here in
+      the head rather than in the per-route <SEO> component. Per-page schema
+      (Article, Service, CollectionPage, …) is still emitted per route by <SEO>.
+      Do NOT also emit an Organization/WebSite graph from a page component or the
+      same @id nodes get duplicated.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.taskforceai.tech/#organization",
+          "name": "TaskForce AI",
+          "legalName": "TaskForce AI (Private) Limited",
+          "url": "https://www.taskforceai.tech/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.taskforceai.tech/logo-icon.png"
+          },
+          "image": "https://www.taskforceai.tech/og-image.png",
+          "description": "Sri Lanka's leading AI automation company, building AI voice agents, AI call centre agents, and intelligent workflow automation for businesses across Sri Lanka and the Middle East.",
+          "telephone": "+94776697566",
+          "email": "info@taskforceai.tech",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Nugegoda Business Centre, Unit 37, 2nd Floor, 80 Nawala Road",
+            "addressLocality": "Nugegoda",
+            "postalCode": "10250",
+            "addressRegion": "Western Province",
+            "addressCountry": "LK"
+          },
+          "sameAs": [
+            "https://web.facebook.com/ForcAi",
+            "https://www.linkedin.com/company/taskforceai-tech/",
+            "https://www.instagram.com/taskforce.ai.tech"
+          ]
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://www.taskforceai.tech/#localbusiness",
+          "name": "TaskForce AI",
+          "image": "https://www.taskforceai.tech/og-image.png",
+          "url": "https://www.taskforceai.tech/",
+          "telephone": "+94776697566",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Nugegoda Business Centre, Unit 37, 2nd Floor, 80 Nawala Road",
+            "addressLocality": "Nugegoda",
+            "postalCode": "10250",
+            "addressRegion": "Western Province",
+            "addressCountry": "LK"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "6.8649",
+            "longitude": "79.8997"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "parentOrganization": {
+            "@id": "https://www.taskforceai.tech/#organization"
+          },
+          "areaServed": [
+            { "@type": "Country", "name": "Sri Lanka" },
+            { "@type": "Country", "name": "Oman" },
+            { "@type": "Country", "name": "United Kingdom" },
+            { "@type": "AdministrativeArea", "name": "Middle East" }
+          ],
+          "additionalProperty": [
+            { "@type": "PropertyValue", "name": "Branch", "value": "Muscat, Oman" },
+            { "@type": "PropertyValue", "name": "Branch", "value": "London, United Kingdom" }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.taskforceai.tech/#website",
+          "url": "https://www.taskforceai.tech/",
+          "name": "TaskForce AI",
+          "publisher": {
+            "@id": "https://www.taskforceai.tech/#organization"
+          },
+          "inLanguage": "en"
+        }
+      ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
