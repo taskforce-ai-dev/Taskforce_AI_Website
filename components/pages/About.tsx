@@ -69,7 +69,7 @@ export const About: React.FC = () => {
     augmentation_description:
       "The narrative of AI replacing humans is fundamentally flawed. We see a future where AI handles the data processing, the scheduling, and the routine logic—liberating humans to focus on strategy, empathy, and creative problem-solving.\n\nOur agents don't just perform tasks; they integrate into your team structure. They have names, roles, and accountability. We are building the first generation of digital employees that work alongside you, not just for you.",
     augmentation_points:
-      'Enterprise-Grade Security (SOC-2 Type II), Seamless Human-in-the-Loop Handoffs, Ethical AI Frameworks',
+      'Enterprise-Grade Security (SOC-2 Compliant), Seamless Human-in-the-Loop Handoffs, Ethical AI Frameworks',
 
     core1_title: 'Sovereignty First',
     core1_desc:
@@ -86,9 +86,9 @@ export const About: React.FC = () => {
     stat2_label: 'Operations',
     stat2_value: 'Global',
     stat3_label: 'Active Clients',
-    stat3_value: '500+',
+    stat3_value: '200+',
     stat4_label: 'Tasks Processed',
-    stat4_value: '1B+',
+    stat4_value: '1M+',
 
     cta_title: 'Ready to evolve your workforce?',
     cta_button1: 'Demo Our Voice Agents Now',
@@ -335,7 +335,7 @@ export const About: React.FC = () => {
 
                   <div className="absolute bottom-6 left-6 right-6 flex justify-between gap-4">
                     <div className="bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-xl flex-1">
-                      <div className="text-2xl font-bold text-white mb-1">100M+</div>
+                      <div className="text-2xl font-bold text-white mb-1">1M+</div>
                       <div className="text-xs text-gray-400 font-mono uppercase">{t('about.stats.automating')}</div>
                     </div>
                     <div className="bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-xl flex-1">

@@ -142,7 +142,7 @@ export const ServiceCTA: React.FC = () => {
               className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 pt-12 border-t border-white/5 w-full max-w-4xl"
             >
               {[
-                { icon: ShieldCheck, label: "Security", val: "SOC-2 Ready" },
+                { icon: ShieldCheck, label: "Security", val: "SOC-2 Compliant" },
                 { icon: Zap, label: "Latency", val: "< 50ms Global" },
                 { icon: Globe, label: "Region", val: "Multi-Zone" },
                 { icon: Cpu, label: "Compute", val: "Auto-Scaling" }
