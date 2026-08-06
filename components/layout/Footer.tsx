@@ -125,7 +125,7 @@ export const Footer: React.FC = () => {
         {/* BOTTOM BAR */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-gray-600 text-[10px] md:text-xs flex flex-col md:flex-row gap-1 md:gap-4 text-center md:text-left items-center">
-            <span>© 2025/2026 TaskForce AI Inc.</span>
+            <span>© 2025/2026 TaskForce AI</span>
             <span className="hidden md:inline text-gray-800">|</span>
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
