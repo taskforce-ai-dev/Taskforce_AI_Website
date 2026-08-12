@@ -30,14 +30,13 @@ import { contactPageSchema } from '../../lib/schema';
 // The `agent` query param selects which agent the browser call routes into.
 const TOKEN_URL = 'https://hattonhills.taskforceai.tech/api/voice-token';
 
-type Lang = 'en' | 'ar' | 'ru' | 'si';
+type Lang = 'en' | 'ar' | 'ru';
 
 // Master language catalogue. Each agent declares which subset it supports.
 const LANGS: Array<{ value: Lang; label: string; native: string; flag: string }> = [
   { value: 'en', label: 'English', native: 'English', flag: '🇬🇧' },
   { value: 'ar', label: 'Arabic', native: 'العربية', flag: '🇸🇦' },
   { value: 'ru', label: 'Russian', native: 'Русский', flag: '🇷🇺' },
-  { value: 'si', label: 'Sinhala', native: 'සිංහල', flag: '🇱🇰' },
 ];
 
 interface Agent {
@@ -85,7 +84,7 @@ const AGENTS: Agent[] = [
       'Nearby excursions',
       'Booking confirmation flow',
     ],
-    langs: ['en', 'ar', 'ru', 'si'],
+    langs: ['en', 'ar', 'ru'],
     callLabel: 'Call Hatton Hills',
     askHint: 'rooms, rates or availability',
     steps: [
