@@ -36,14 +36,18 @@
   RewriteRule ^blog/taskforce-ai-faq-page/?$ - [G,L]
   RewriteRule ^blog/ai-voice-agent-sri-lanka-answer-every-call-without-hiring-a-receptionist/?$ - [G,L]
 
-  # Blog routes are normally prerendered to static files. If a transient WordPress
-  # outage during the build left a blog route un-prerendered, serve the SPA shell
-  # so the page client-renders (WordPress is reachable from browsers) instead of
-  # returning a 404. When the blog IS prerendered, the static file exists and the
-  # !-f / !-d conditions skip this rule, so prerendered HTML is served as before.
+  # Blog routes are normally prerendered to static files (the !-f / !-d checks
+  # skip this rule for them). A blog URL with no static file is either a
+  # brand-new post not yet built, or a deleted/renamed/garbage slug. Serving the
+  # homepage (index.html) for ALL of them — the old behaviour — turned every
+  # non-existent /blog/ URL into a soft 404 (HTTP 200 homepage, canonical /).
+  # Instead, hand off to blog-fallback.php, which asks WordPress whether the slug
+  # exists: real post -> 200 + SPA shell (instant publish preserved), missing ->
+  # a real 404. Known permanently-removed posts are already 410'd above and never
+  # reach this.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^blog(/.*)?$ index.html [QSA,L]
+  RewriteRule ^blog(/.*)?$ /blog-fallback.php [QSA,L]
 </IfModule>
 
 # Unknown URLs return a proper 404 status, served as the prerendered NotFound
