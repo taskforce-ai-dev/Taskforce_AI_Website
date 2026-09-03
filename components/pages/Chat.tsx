@@ -69,8 +69,7 @@ export const Chat: React.FC = () => {
             <strong className="text-white">business automation</strong> for your company.
           </p>
           <p className="text-sm text-gray-400 mb-10">
-            Tap the button below to open WhatsApp and message us directly — a real
-            member of the TaskForce AI team will reply.
+            Tap the button below to open WhatsApp and message us directly — our human agent of the TaskForce AI team will reply.
           </p>
 
           {/* The one manual call-to-action. No auto-redirect anywhere on this
