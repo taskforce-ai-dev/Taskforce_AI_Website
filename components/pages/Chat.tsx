@@ -30,7 +30,7 @@ export const Chat: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#050507] text-white flex flex-col">
       <SEO
-        title="Chat with TaskForce AI on WhatsApp"
+        title="Chat with Our Marketing Team"
         description="Message the TaskForce AI team on WhatsApp for instant pricing, a free consultation, and answers about our AI voice agents and business automation."
         url="/chat"
         noindex
@@ -96,7 +96,7 @@ export const Chat: React.FC = () => {
               href="mailto:chrys@taskforceai.tech"
               className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
             >
-              <Mail className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
+              <Mail className="w-6 h-5 text-primary-light shrink-0 mt-0.5" />
               <span className="text-sm text-gray-300 break-all">chrys@taskforceai.tech</span>
             </a>
             <a
@@ -107,7 +107,7 @@ export const Chat: React.FC = () => {
               <span className="text-sm text-gray-300">+94 77 669 7566</span>
             </a>
             <address className="not-italic flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-              <MapPin className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
+              <MapPin className="w-6 h-5 text-primary-light shrink-0 mt-0.5" />
               <span className="text-sm text-gray-300">
                 Nugegoda Business Centre, Unit 37, 2nd Floor, 80 Nawala Road,
                 Nugegoda 10250
