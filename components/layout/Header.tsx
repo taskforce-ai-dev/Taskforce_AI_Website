@@ -29,6 +29,7 @@ export const Header: React.FC = () => {
   const isBookingPage = location.pathname === '/book-demo';
   const isContactPage = location.pathname === '/contact';
   const isAdminPage = location.pathname.startsWith('/admin');
+  const isChatPage = location.pathname.startsWith('/chat');
 
   const navItems = [
     { label: 'Home', id: 'home', path: '/' },
@@ -107,7 +108,7 @@ export const Header: React.FC = () => {
     i18n.changeLanguage(lng);
   };
 
-  if (isServicePage || isBookingPage || isContactPage || isAdminPage) {
+  if (isServicePage || isBookingPage || isContactPage || isAdminPage || isChatPage) {
     return null;
   }
 

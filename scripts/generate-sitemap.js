@@ -24,6 +24,8 @@ const staticRoutes = [
   '/about/',
   '/contact/',
   '/book-demo/',
+  '/privacy/',
+  '/terms/',
   '/blog/',
 ];
 

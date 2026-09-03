@@ -11,6 +11,9 @@ import { Contact } from './components/pages/Contact';
 import { About } from './components/pages/About';
 import { Blog } from './components/pages/Blog';
 import { BlogPost } from './components/pages/BlogPost';
+import { Chat } from './components/pages/Chat';
+import { Privacy } from './components/pages/Privacy';
+import { Terms } from './components/pages/Terms';
 import { NotFound } from './components/pages/NotFound';
 import { AdminLogin } from './components/admin/AdminLogin';
 import { AdminDashboard } from './components/admin/AdminDashboard';
@@ -38,7 +41,13 @@ function App() {
     typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('prerender') === '1';
 
-  const [isLoading, setIsLoading] = useState(!isPrerender);
+  // The /chat WhatsApp ad landing page must load instantly (Google Ads checks
+  // landing-page speed), so skip the 2.2s brand loader there.
+  const isChatPage =
+    typeof window !== 'undefined' &&
+    window.location.pathname.startsWith('/chat');
+
+  const [isLoading, setIsLoading] = useState(!isPrerender && !isChatPage);
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -83,6 +92,10 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
+
+                  <Route path="/chat" element={<Chat />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
 
                   <Route path="/admin/login" element={<AdminLogin />} />
                   <Route
