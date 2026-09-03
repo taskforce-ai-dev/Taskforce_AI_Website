@@ -139,6 +139,29 @@ export const Chat: React.FC = () => {
             </Link>
           </div>
         </div>
+
+        {/* Video previews — proof-of-work for the ad review + curious visitors */}
+        <div className="w-full max-w-4xl mt-16">
+          <h2 className="text-lg font-bold text-white mb-6">See TaskForce AI in action</h2>
+          <div className="grid sm:grid-cols-2 gap-6">
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full rounded-2xl border border-white/10 bg-black aspect-[9/16] object-cover"
+            >
+              <source src="/videos/chat-demo-1.mp4" type="video/mp4" />
+            </video>
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full rounded-2xl border border-white/10 bg-black aspect-[9/16] object-cover"
+            >
+              <source src="/videos/chat-demo-2.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
       </main>
 
       {/* Footer with Privacy + Terms links (required for Google Ads approval) */}
