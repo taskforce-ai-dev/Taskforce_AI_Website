@@ -93,11 +93,11 @@ export const Chat: React.FC = () => {
               is a genuine business page. */}
           <div className="grid sm:grid-cols-3 gap-4 mt-14 text-left">
             <a
-              href="mailto:info@taskforceai.tech"
+              href="mailto:chrys@taskforceai.tech"
               className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
             >
               <Mail className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-300 break-all">info@taskforceai.tech</span>
+              <span className="text-sm text-gray-300 break-all">chrys@taskforceai.tech</span>
             </a>
             <a
               href="tel:+94776697566"
