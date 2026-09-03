@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { MessageCircle, Mail, Phone, MapPin, Globe, Mic } from 'lucide-react';
 import { SEO } from '../seo/SEO';
 
 const logoWordmark = new URL(
@@ -93,11 +93,11 @@ export const Chat: React.FC = () => {
               is a genuine business page. */}
           <div className="grid sm:grid-cols-3 gap-4 mt-14 text-left">
             <a
-              href="mailto:info@taskforceai.tech"
+              href="mailto:chrys@taskforceai.tech"
               className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
             >
               <Mail className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-300 break-all">info@taskforceai.tech</span>
+              <span className="text-sm text-gray-300 break-all">chrys@taskforceai.tech</span>
             </a>
             <a
               href="tel:+94776697566"
@@ -113,6 +113,53 @@ export const Chat: React.FC = () => {
                 Nugegoda 10250
               </span>
             </address>
+          </div>
+
+          {/* Website + voice agent demo — the two other places to explore us */}
+          <div className="grid sm:grid-cols-2 gap-4 mt-4 text-left">
+            <Link
+              to="/"
+              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <Globe className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
+              <span>
+                <span className="block text-sm font-semibold text-white">Visit our website</span>
+                <span className="text-xs text-gray-400 break-all">taskforceai.tech</span>
+              </span>
+            </Link>
+            <Link
+              to="/book-demo"
+              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <Mic className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
+              <span>
+                <span className="block text-sm font-semibold text-white">Demo our voice agent</span>
+                <span className="text-xs text-gray-400 break-all">taskforceai.tech/book-demo</span>
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Video previews — proof-of-work for the ad review + curious visitors */}
+        <div className="w-full max-w-4xl mt-16">
+          <h2 className="text-lg font-bold text-white mb-6">See TaskForce AI in action</h2>
+          <div className="grid sm:grid-cols-2 gap-6">
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full rounded-2xl border border-white/10 bg-black aspect-[9/16] object-cover"
+            >
+              <source src="/videos/chat-demo-1.mp4" type="video/mp4" />
+            </video>
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full rounded-2xl border border-white/10 bg-black aspect-[9/16] object-cover"
+            >
+              <source src="/videos/chat-demo-2.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </main>
