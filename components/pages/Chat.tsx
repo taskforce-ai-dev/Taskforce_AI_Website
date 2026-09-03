@@ -60,7 +60,7 @@ export const Chat: React.FC = () => {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-5">
-            Chat with our team on WhatsApp
+            Chat with our Marketing Team
           </h1>
 
           <p className="text-lg text-gray-300 mb-3">
