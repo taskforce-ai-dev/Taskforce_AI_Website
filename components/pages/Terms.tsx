@@ -109,7 +109,7 @@ export const Terms: React.FC = () => {
               TaskForce AI — Nugegoda Business Centre, Unit 37, 2nd Floor, 80
               Nawala Road, Nugegoda 10250, Sri Lanka.
               <br />
-              Email: <a href="mailto:info@taskforceai.tech">info@taskforceai.tech</a>{' '}
+              Email: <a href="mailto:chrys@taskforceai.tech">chrys@taskforceai.tech</a>{' '}
               · Phone: <a href="tel:+94776697566">+94 77 669 7566</a>
             </p>
           </div>
