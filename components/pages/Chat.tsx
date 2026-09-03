@@ -30,7 +30,7 @@ export const Chat: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#050507] text-white flex flex-col">
       <SEO
-        title="Chat with Our Marketing Team"
+        title="Chat with TaskForce AI on WhatsApp"
         description="Message the TaskForce AI team on WhatsApp for instant pricing, a free consultation, and answers about our AI voice agents and business automation."
         url="/chat"
         noindex
@@ -85,59 +85,6 @@ export const Chat: React.FC = () => {
             Chat on WhatsApp
           </a>
 
-          <p className="text-xs text-gray-500 mt-4">
-            Prefer not to use WhatsApp? Reach us through any option below.
-          </p>
-
-          {/* Alternative contact — helps Google's automated review confirm this
-              is a genuine business page. */}
-          <div className="grid sm:grid-cols-3 gap-4 mt-14 text-left">
-            <a
-              href="mailto:chrys@taskforceai.tech"
-              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
-            >
-              <Mail className="w-6 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-300 break-all">chrys@taskforceai.tech</span>
-            </a>
-            <a
-              href="tel:+94776697566"
-              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
-            >
-              <Phone className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-300">+94 77 669 7566</span>
-            </a>
-            <address className="not-italic flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-              <MapPin className="w-6 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span className="text-sm text-gray-300">
-                Nugegoda Business Centre, Unit 37, 2nd Floor, 80 Nawala Road,
-                Nugegoda 10250
-              </span>
-            </address>
-          </div>
-
-          {/* Website + voice agent demo — the two other places to explore us */}
-          <div className="grid sm:grid-cols-2 gap-4 mt-4 text-left">
-            <Link
-              to="/"
-              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
-            >
-              <Globe className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span>
-                <span className="block text-sm font-semibold text-white">Visit our website</span>
-                <span className="text-xs text-gray-400 break-all">taskforceai.tech</span>
-              </span>
-            </Link>
-            <Link
-              to="/book-demo"
-              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
-            >
-              <Mic className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
-              <span>
-                <span className="block text-sm font-semibold text-white">Demo our voice agent</span>
-                <span className="text-xs text-gray-400 break-all">taskforceai.tech/book-demo</span>
-              </span>
-            </Link>
-          </div>
         </div>
 
         {/* Video previews — proof-of-work for the ad review + curious visitors */}
@@ -160,6 +107,61 @@ export const Chat: React.FC = () => {
             >
               <source src="/videos/chat-demo-2.mp4" type="video/mp4" />
             </video>
+          </div>
+        </div>
+
+        {/* Alternative contact — helps Google's automated review confirm this
+            is a genuine business page. */}
+        <div className="w-full max-w-4xl mt-16 text-left">
+          <p className="text-xs text-gray-500 mb-6 text-center sm:text-left">
+            Prefer not to use WhatsApp? Reach us through any option below.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            <a
+              href="mailto:chrys@taskforceai.tech"
+              className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <Mail className="w-5 h-5 text-primary-light shrink-0" />
+              <span className="text-sm text-gray-300 whitespace-nowrap">chrys@taskforceai.tech</span>
+            </a>
+            <a
+              href="tel:+94776697566"
+              className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <Phone className="w-5 h-5 text-primary-light shrink-0" />
+              <span className="text-sm text-gray-300 whitespace-nowrap">+94 77 669 7566</span>
+            </a>
+            <address className="not-italic flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+              <MapPin className="w-5 h-5 text-primary-light shrink-0" />
+              <span className="text-sm text-gray-300">
+                Nugegoda Business Centre, Unit 37, 2nd Floor, 80 Nawala Road, Nugegoda 10250
+              </span>
+            </address>
+          </div>
+
+          {/* Website + voice agent demo — the two other places to explore us */}
+          <div className="grid sm:grid-cols-2 gap-4 mt-4">
+            <Link
+              to="/"
+              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <Globe className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
+              <span>
+                <span className="block text-sm font-semibold text-white">Visit our website</span>
+                <span className="text-xs text-gray-400 break-all">taskforceai.tech</span>
+              </span>
+            </Link>
+            <Link
+              to="/book-demo"
+              className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <Mic className="w-5 h-5 text-primary-light shrink-0 mt-0.5" />
+              <span>
+                <span className="block text-sm font-semibold text-white">Demo our voice agent</span>
+                <span className="text-xs text-gray-400 break-all">taskforceai.tech/book-demo</span>
+              </span>
+            </Link>
           </div>
         </div>
       </main>
