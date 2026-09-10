@@ -30,13 +30,16 @@ import { contactPageSchema } from '../../lib/schema';
 // The `agent` query param selects which agent the browser call routes into.
 const TOKEN_URL = 'https://hattonhills.taskforceai.tech/api/voice-token';
 
-type Lang = 'en' | 'ar' | 'ru';
+type Lang = 'en' | 'ar' | 'ru' | 'si';
 
-// Master language catalogue. Each agent declares which subset it supports.
+// Master language catalogue. Each agent declares which subset it supports; the
+// dropdown shows the FULL catalogue and greys out the ones an agent does not
+// support (only the supported ones are clickable).
 const LANGS: Array<{ value: Lang; label: string; native: string; flag: string }> = [
   { value: 'en', label: 'English', native: 'English', flag: '🇬🇧' },
   { value: 'ar', label: 'Arabic', native: 'العربية', flag: '🇸🇦' },
   { value: 'ru', label: 'Russian', native: 'Русский', flag: '🇷🇺' },
+  { value: 'si', label: 'Sinhala', native: 'සිංහල', flag: '🇱🇰' },
 ];
 
 interface Agent {
@@ -252,6 +255,55 @@ const AGENTS: Agent[] = [
       },
     ],
   },
+  {
+    id: 'horizon',
+    brand: 'Horizon Airline & Aviation Academy',
+    agentName: 'Vidya',
+    role: 'Course Advisor',
+    location: 'Colombo, Sri Lanka',
+    description:
+      'Horizon Airline & Aviation Academy is a private aviation training college in ' +
+      'Sri Lanka offering diploma programmes in Airline Cabin Crew, Airport Ground ' +
+      'Operations, Airline Ticketing & Reservations, and Air Cargo & Logistics. Vidya ' +
+      'answers prospective students — course details, fees, entry requirements, ' +
+      'duration and how to apply — in English or Sinhala, any time of day.',
+    images: [
+      '/images/horizon-aviation-academy.jpg',
+      'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=80',
+      'https://images.unsplash.com/photo-1520437358207-323b43b50729?auto=format&fit=crop&w=1400&q=80',
+    ],
+    trainedOn: [
+      'Airline Cabin Crew diploma',
+      'Airport Ground Operations diploma',
+      'Ticketing, Reservations & Marketing',
+      'Air Cargo & Logistics diploma',
+      'Course fees & duration',
+      'Entry requirements (G.C.E. O/L)',
+      'Class schedules & campuses',
+      'How to apply / enrolment',
+    ],
+    langs: ['en', 'si'],
+    callLabel: 'Call Horizon Academy',
+    askHint: 'courses, fees or entry requirements',
+    steps: [
+      {
+        bold: 'Click the demo link',
+        rest: ' and wait for Vidya to answer. She greets you as a prospective student calling an aviation training academy.',
+      },
+      {
+        bold: 'Ask about a course.',
+        rest: ' Ask about the Cabin Crew, Ground Operations, Ticketing or Air Cargo diploma — its fee, duration and entry requirements.',
+      },
+      {
+        bold: 'Try Sinhala.',
+        rest: ' Switch the voice language to Sinhala and ask again — Vidya answers course and fee questions in Sinhala too.',
+      },
+      {
+        bold: 'Push further.',
+        rest: ' Ask how to apply, the class schedule, or which campus offers a course, and see how she handles it.',
+      },
+    ],
+  },
 ];
 
 const langMeta = (v: Lang) => LANGS.find((l) => l.value === v) ?? LANGS[0];
@@ -460,7 +512,10 @@ export const BookDemo: React.FC = () => {
     };
   }, []);
 
-  const multiLang = agent.langs.length > 1;
+  // Always show the language dropdown: it lists the full LANGS catalogue and
+  // greys out the languages this agent does not support (only supported ones
+  // are clickable). LANGS always has more than one entry.
+  const multiLang = LANGS.length > 1;
 
   return (
     <div className="min-h-screen text-white relative overflow-x-hidden selection:bg-primary-DEFAULT selection:text-white">
@@ -706,24 +761,43 @@ export const BookDemo: React.FC = () => {
                                     transition={{ duration: 0.15 }}
                                     className="absolute z-30 mt-2 w-full rounded-xl border border-white/15 bg-dark-surface/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden"
                                   >
-                                    {agent.langs.map((value) => {
+                                    {LANGS.map(({ value }) => {
                                       const l = langMeta(value);
+                                      const supported = agent.langs.includes(value);
                                       return (
-                                        <li key={value} role="option" aria-selected={lang === value}>
+                                        <li
+                                          key={value}
+                                          role="option"
+                                          aria-selected={lang === value}
+                                          aria-disabled={!supported}
+                                        >
                                           <button
                                             type="button"
+                                            disabled={!supported}
+                                            title={supported ? undefined : 'Not available for this demo'}
                                             onClick={() => {
+                                              if (!supported) return;
                                               setLang(value);
                                               setLangOpen(false);
                                             }}
-                                            className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left hover:bg-accent/10 transition-colors"
+                                            className={`w-full flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors ${
+                                              supported
+                                                ? 'hover:bg-accent/10 cursor-pointer'
+                                                : 'opacity-40 cursor-not-allowed'
+                                            }`}
                                           >
                                             <span className="flex items-center gap-2.5">
                                               <span className="text-base leading-none">{l.flag}</span>
                                               <span className="font-medium text-white">{l.native}</span>
                                               <span className="text-xs text-gray-400">{l.label}</span>
                                             </span>
-                                            {lang === value && <Check className="w-4 h-4 text-accent" />}
+                                            {supported ? (
+                                              lang === value && <Check className="w-4 h-4 text-accent" />
+                                            ) : (
+                                              <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
+                                                Soon
+                                              </span>
+                                            )}
                                           </button>
                                         </li>
                                       );
