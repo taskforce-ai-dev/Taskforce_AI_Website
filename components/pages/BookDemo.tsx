@@ -135,7 +135,7 @@ const AGENTS: Agent[] = [
       'Island-wide service',
       'Free quote & specialist callback',
     ],
-    langs: ['en'],
+    langs: ['en', 'ar', 'ru'],
     callLabel: 'Call Kitchen & Co.',
     askHint: 'ovens, mixers or a full kitchen fit-out',
 
@@ -184,7 +184,7 @@ const AGENTS: Agent[] = [
       'Brand comparison',
       'Delivery & sales callback',
     ],
-    langs: ['en'],
+    langs: ['en', 'ar', 'ru'],
     callLabel: 'Call World Of Refrigerators',
     askHint: 'fridges, freezers or coolers',
     steps: [
@@ -233,7 +233,7 @@ const AGENTS: Agent[] = [
       'Availability & viewing schedule',
       'Booking a property viewing',
     ],
-    langs: ['en'],
+    langs: ['en', 'ar', 'ru'],
     callLabel: 'Call Star Properties',
     askHint: 'rentals, locations or availability',
     steps: [
@@ -282,7 +282,7 @@ const AGENTS: Agent[] = [
       'Class schedules & campuses',
       'How to apply / enrolment',
     ],
-    langs: ['en', 'si'],
+    langs: ['en', 'ar', 'ru', 'si'],
     callLabel: 'Call Horizon Academy',
     askHint: 'courses, fees or entry requirements',
     steps: [
