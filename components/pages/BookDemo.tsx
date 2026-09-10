@@ -282,7 +282,7 @@ const AGENTS: Agent[] = [
       'Class schedules & campuses',
       'How to apply / enrolment',
     ],
-    langs: ['en', 'ar', 'ru', 'si'],
+    langs: ['en', 'ar', 'ru'],
     callLabel: 'Call Horizon Academy',
     askHint: 'courses, fees or entry requirements',
     steps: [
