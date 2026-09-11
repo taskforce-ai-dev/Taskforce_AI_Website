@@ -121,7 +121,7 @@ const AGENTS: Agent[] = [
       'institution, answers product and service questions, and connects you with a ' +
       'specialist for a tailored quote — any time of day.',
     images: [
-      '/images/kitchen-and-co-v2.jpg', // vendored portrait kitchen photo (v2 filename busts CDN cache)
+      '/images/kitchen-and-co-v3.jpg', // vendored portrait kitchen photo (v3 filename busts CDN cache)
       'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1581349437898-cebbe9831942?auto=format&fit=crop&w=1400&q=80',
     ],
@@ -282,7 +282,7 @@ const AGENTS: Agent[] = [
       'Class schedules & campuses',
       'How to apply / enrolment',
     ],
-    langs: ['en', 'ar', 'ru'],
+    langs: ['en', 'ar', 'ru', 'si'],
     callLabel: 'Call Horizon Academy',
     askHint: 'courses, fees or entry requirements',
     steps: [
