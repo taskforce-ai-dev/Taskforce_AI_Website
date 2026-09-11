@@ -170,7 +170,7 @@ const AGENTS: Agent[] = [
       'budget, compares brands like Abans, LG and Haier, and walks you to a purchase ' +
       'with live prices — 24 hours a day.',
     images: [
-      '/images/world-of-refrigerators.jpg', // vendored full-res smart-fridge photo
+      '/images/world-of-refrigerators-v2.jpg', // vendored full-res smart-fridge photo (v2 filename busts CDN cache)
       'https://images.unsplash.com/photo-1536353284924-9220c464e262?auto=format&fit=crop&w=1400&q=80',
       'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1400&q=80',
     ],
@@ -219,6 +219,7 @@ const AGENTS: Agent[] = [
       'details, and arranges viewings exactly as a professional letting agent would, ' +
       '24 hours a day.',
     images: [
+      '/images/star-properties.jpg', // vendored real-estate photo (Unsplash below are fallbacks)
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=90',
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=90',
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=90',
