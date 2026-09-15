@@ -43,8 +43,8 @@ jobs:
           if [ -f data/smartpbx-agents.generated.mjs ]; then
             npm run test:smartpbx
           fi
-      - name: Build without deployment credentials
-        run: npm run build
+      - name: Compile production assets without deployment credentials
+        run: npm run build:sitemap && npx --no-install vite build
         env:
           VITE_SUPABASE_URL: https://example.invalid
           VITE_SUPABASE_ANON_KEY: factory-ci-public-placeholder
