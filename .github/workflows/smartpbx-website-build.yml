@@ -1,0 +1,52 @@
+name: SmartPBX Website Build
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "components/pages/BookDemo.tsx"
+      - "data/smartpbx-agents.generated.mjs"
+      - "scripts/validate-smartpbx-card.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/smartpbx-website-build.yml"
+  push:
+    branches: [main, "smartpbx-agent-factory/**"]
+    paths:
+      - "components/pages/BookDemo.tsx"
+      - "data/smartpbx-agents.generated.mjs"
+      - "scripts/validate-smartpbx-card.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/smartpbx-website-build.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smartpbx-website-build:
+    name: smartpbx-website-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Validate generated SmartPBX cards when present
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f data/smartpbx-agents.generated.mjs ]; then
+            npm run test:smartpbx
+          fi
+      - name: Compile production assets without deployment credentials
+        run: npm run build:sitemap && npx --no-install vite build
+        env:
+          VITE_SUPABASE_URL: https://example.invalid
+          VITE_SUPABASE_ANON_KEY: factory-ci-public-placeholder
+          VITE_WP_API: ''
+          STRICT_BLOG_PRERENDER: '0'
