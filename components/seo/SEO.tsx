@@ -34,7 +34,7 @@ const buildCanonicalUrl = (url?: string) => {
 };
 
 export const SEO: React.FC<SEOProps> = ({
-  title = 'Taskforce AI- AI Automation agency Sri Lanka',
+  title = 'AI Automation Agency Sri Lanka | Voice Agents, WhatsApp & Social Media | TaskForce AI',
   description = "Sri Lanka's Leading AI Automation Company. We build AI voice agents, AI call centre agents, and intelligent workflow automation for businesses in Colombo and across the Middle East. Book a free demo.",
   keywords = 'AI Sri Lanka, AI voice agent Sri Lanka, AI automation company Sri Lanka, AI voice receptionist Sri Lanka, AI calling agent Sri Lanka, AI customer service Sri Lanka, AI companies in Sri Lanka, Artificial Intelligence companies in Sri Lanka, Intelligent Automation agents Sri Lanka',
   image = 'https://www.taskforceai.tech/og-image.png',  url,
