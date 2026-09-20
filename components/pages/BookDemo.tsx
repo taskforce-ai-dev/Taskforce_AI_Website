@@ -39,7 +39,6 @@ const LANGS: Array<{ value: Lang; label: string; native: string; flag: string }>
   { value: 'en', label: 'English', native: 'English', flag: '🇬🇧' },
   { value: 'ar', label: 'Arabic', native: 'العربية', flag: '🇸🇦' },
   { value: 'ru', label: 'Russian', native: 'Русский', flag: '🇷🇺' },
-  { value: 'si', label: 'Sinhala', native: 'සිංහල', flag: '🇱🇰' },
 ];
 
 interface Agent {
@@ -283,7 +282,7 @@ const AGENTS: Agent[] = [
       'Class schedules & campuses',
       'How to apply / enrolment',
     ],
-    langs: ['en', 'ar', 'ru', 'si'],
+    langs: ['en', 'ar', 'ru'],
     callLabel: 'Call Horizon Academy',
     askHint: 'courses, fees or entry requirements',
     steps: [
