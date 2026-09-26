@@ -173,16 +173,14 @@ export const Hero: React.FC = () => {
   className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.1] max-w-[90vw] md:max-w-5xl mx-auto hero-main-title"
 >
   {/* The single, real H1 text — the one source of truth for SEO & a11y,
-      always visible so the full headline is present the moment the page loads. */}
-  <span className="relative block select-none text-white">
+      always visible so the full headline is present the moment the page loads.
+      Real users get an animated gradient "shine" that sweeps across the actual
+      letters on arrival (the text itself never changes or disappears); the
+      prerender/crawler snapshot keeps plain white text. */}
+  <span
+    className={`block select-none ${isPrerender ? 'text-white' : 'hero-title-shine'}`}
+  >
     {heroContent.title}
-
-    {/* Decorative one-shot light sweep — real users only. aria-hidden and
-        pointer-events-none; it sits on top of the solid text and never hides
-        it, so the headline stays fully readable at every frame. */}
-    {!isPrerender && (
-      <span aria-hidden="true" className="hero-title-sweep pointer-events-none absolute inset-0" />
-    )}
   </span>
 </motion.h1>
 

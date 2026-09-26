@@ -35,32 +35,42 @@ body {
 }
 
 /*
- * Hero H1 entrance: a one-shot light sweep across the (always-visible) title.
- * Purely decorative — the real headline text underneath is never hidden, so
- * crawlers and users read the full title from the first paint. Replaces the old
- * scramble animation, which rendered the real title transparent and revealed
- * random glyphs, leaving the heading unreadable to bots rendering the live page.
+ * Hero H1 entrance: an animated gradient "shine" that sweeps a bright cyan
+ * highlight across the actual title letters when the page loads. The text is
+ * the real headline (correct characters, always present) — only its fill colour
+ * animates, so users see clear motion while crawlers still read the full title.
+ * Replaces the old scramble animation, which rendered the real title transparent
+ * and revealed random glyphs, leaving the heading unreadable to bots.
  */
-.hero-title-sweep {
+.hero-title-shine {
   background-image: linear-gradient(
-    100deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.65) 50%,
-    transparent 65%
+    110deg,
+    #ffffff 0%,
+    #ffffff 42%,
+    #22d3ee 50%,
+    #ffffff 58%,
+    #ffffff 100%
   );
   background-size: 250% 100%;
-  background-repeat: no-repeat;
   background-position: 150% 0;
-  mix-blend-mode: overlay;
-  animation: heroTitleSweep 1.8s ease-out 0.2s 1 both;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: heroTitleShine 2.4s ease-in-out 0.25s 1 both;
 }
 
-@keyframes heroTitleSweep {
+@keyframes heroTitleShine {
   from { background-position: 150% 0; }
   to   { background-position: -50% 0; }
 }
 
-/* Respect users who prefer reduced motion — show the title with no sweep. */
+/* Respect users who prefer reduced motion — show a static white title, no shine. */
 @media (prefers-reduced-motion: reduce) {
-  .hero-title-sweep { animation: none; }
+  .hero-title-shine {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+  }
 }
