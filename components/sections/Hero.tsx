@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ScrambleText } from '../ui/ScrambleText';
 import { GlitchButton } from '../ui/GlitchButton';
 import { Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -151,23 +150,18 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           {/*
-           * ── SEO-SAFE H1 WITH SCRAMBLE ANIMATION ─────────────────────────────
+           * ── SEO-SAFE, ALWAYS-READABLE H1 ────────────────────────────────────
            *
-           * HOW THIS WORKS:
+           * The real headline text is ALWAYS rendered, fully visible and readable
+           * from the first paint — for real users, crawlers and the Puppeteer
+           * prerender alike. There is exactly ONE copy of the title in the DOM.
            *
-           * prerender.js uses page.evaluateOnNewDocument() to set
-           * window.__IS_PRERENDER__ = true BEFORE any JS on the page runs.
-           * When React mounts, isPrerender is already true.
-           *
-           * Normal users (isPrerender = false):
-           *   — Plain text span: text-transparent (invisible)
-           *   — ScrambleText overlay: visible, animation runs normally
-           *
-           * Puppeteer prerender (isPrerender = true):
-           *   — Plain text span: text-white (fully visible)
-           *   — No ScrambleText overlay rendered at all
-           *   — Puppeteer captures clean readable H1
-           *   — Google reads: "We Build AI Voice Agents..."
+           * The previous scramble animation hid the real text (text-transparent)
+           * behind an overlay that started EMPTY and revealed random glyphs over
+           * time, so any bot rendering the live page saw an unreadable heading on
+           * arrival. The entrance animation is now a purely decorative light
+           * sweep (aria-hidden) that passes across the solid title without ever
+           * removing, replacing, or obscuring the words.
            * ─────────────────────────────────────────────────────────────────── */}
 <motion.h1
   style={{
@@ -178,26 +172,18 @@ export const Hero: React.FC = () => {
   }}
   className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.1] max-w-[90vw] md:max-w-5xl mx-auto hero-main-title"
 >
-  {/* The single, real H1 text — the one source of truth for SEO & a11y.
-      During prerender it is fully visible (text-white), so crawlers capture
-      ONE clean headline. For real users it is transparent: it still reserves
-      the title's final size (so the scramble can never shift the layout) while
-      the animated overlay below plays on top. */}
-  <span
-    className={`block select-none ${isPrerender ? 'text-white' : 'text-transparent'}`}
-  >
+  {/* The single, real H1 text — the one source of truth for SEO & a11y,
+      always visible so the full headline is present the moment the page loads. */}
+  <span className="relative block select-none text-white">
     {heroContent.title}
-  </span>
 
-  {/* Decorative scramble overlay — real users only. It is aria-hidden and is
-      NOT rendered during prerender, so the crawled <h1> contains the title
-      exactly once (previously it was emitted twice: here AND in the span above,
-      producing the duplicated "…WorldwideWe Build…" headline). */}
-  {!isPrerender && (
-    <span aria-hidden="true" className="absolute inset-0 block">
-      <ScrambleText text={heroContent.title} startDelay={200} />
-    </span>
-  )}
+    {/* Decorative one-shot light sweep — real users only. aria-hidden and
+        pointer-events-none; it sits on top of the solid text and never hides
+        it, so the headline stays fully readable at every frame. */}
+    {!isPrerender && (
+      <span aria-hidden="true" className="hero-title-sweep pointer-events-none absolute inset-0" />
+    )}
+  </span>
 </motion.h1>
 
           {/* Subtitle */}
