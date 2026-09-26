@@ -193,29 +193,28 @@ export const Hero: React.FC = () => {
       animate="visible"
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: 0.035, delayChildren: 0.15 } },
+        visible: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
       }}
     >
       {heroContent.title.split(' ').map((word, wi, words) => (
         <React.Fragment key={wi}>
-          <span aria-hidden="true" className="inline-block whitespace-nowrap align-top">
-            {word.split('').map((ch, ci) => (
-              <motion.span
-                key={ci}
-                className="inline-block"
-                variants={{
-                  hidden: { opacity: 0, y: '0.6em', filter: 'blur(10px)' },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-                  },
-                }}
-              >
-                {ch}
-              </motion.span>
-            ))}
+          {/* Each word rises up from behind a clean mask (overflow-hidden).
+              paddingBottom + matching negative marginBottom give descenders
+              (g, y, p) room so they are never clipped at rest. */}
+          <span
+            aria-hidden="true"
+            className="inline-block overflow-hidden"
+            style={{ verticalAlign: 'bottom', paddingBottom: '0.15em', marginBottom: '-0.15em' }}
+          >
+            <motion.span
+              className="inline-block"
+              variants={{
+                hidden: { y: '115%' },
+                visible: { y: '0%', transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+              }}
+            >
+              {word}
+            </motion.span>
           </span>
           {wi < words.length - 1 ? ' ' : ''}
         </React.Fragment>
