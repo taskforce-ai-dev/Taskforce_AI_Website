@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { GlitchButton } from '../ui/GlitchButton';
 import { Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,8 @@ interface HeroContent {
 export const Hero: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const prefersReducedMotion = useReducedMotion();
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -172,17 +174,54 @@ export const Hero: React.FC = () => {
   }}
   className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.1] max-w-[90vw] md:max-w-5xl mx-auto hero-main-title"
 >
-  {/* The single, real H1 text — the one source of truth for SEO & a11y. It is
-      ONE intact text node (so it wraps naturally and crawlers read the exact
-      headline). Real users get an animated brand gradient that continuously
-      flows across the letters — clear, professional motion that never changes,
-      hides, or reorders the words. The prerender/crawler snapshot keeps plain
-      white text. */}
-  <span
-    className={`block select-none ${isPrerender ? 'text-white' : 'hero-title-gradient'}`}
-  >
-    {heroContent.title}
-  </span>
+  {/* The single, real H1 text — the one source of truth for SEO & a11y.
+      ─ Prerender/crawlers: ONE clean, intact text node (plain white), so the
+        served HTML always contains the exact, readable headline.
+      ─ Real users: the SAME real letters animate into place on arrival — each
+        character rises up and un-blurs in sequence (a clean "assemble" reveal,
+        no random glyphs). The container carries aria-label with the full title
+        and the animated letters are aria-hidden, so screen readers announce the
+        headline once and correctly. */}
+  {isPrerender || prefersReducedMotion ? (
+    <span className="block select-none text-white">{heroContent.title}</span>
+  ) : (
+    <motion.span
+      key={heroContent.title}
+      aria-label={heroContent.title}
+      className="block select-none text-white"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.035, delayChildren: 0.15 } },
+      }}
+    >
+      {heroContent.title.split(' ').map((word, wi, words) => (
+        <React.Fragment key={wi}>
+          <span aria-hidden="true" className="inline-block whitespace-nowrap align-top">
+            {word.split('').map((ch, ci) => (
+              <motion.span
+                key={ci}
+                className="inline-block"
+                variants={{
+                  hidden: { opacity: 0, y: '0.6em', filter: 'blur(10px)' },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                  },
+                }}
+              >
+                {ch}
+              </motion.span>
+            ))}
+          </span>
+          {wi < words.length - 1 ? ' ' : ''}
+        </React.Fragment>
+      ))}
+    </motion.span>
+  )}
 </motion.h1>
 
           {/* Subtitle */}
