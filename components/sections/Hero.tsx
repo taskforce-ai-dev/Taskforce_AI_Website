@@ -182,18 +182,26 @@ export const Hero: React.FC = () => {
         no random glyphs). The container carries aria-label with the full title
         and the animated letters are aria-hidden, so screen readers announce the
         headline once and correctly. */}
-  {isPrerender || prefersReducedMotion ? (
+  {isPrerender ? (
+    // Crawler snapshot: one clean, intact, plain-white title.
     <span className="block select-none text-white">{heroContent.title}</span>
+  ) : prefersReducedMotion ? (
+    // Reduced motion: the same premium gradient look, but no movement.
+    <span className="block select-none hero-title-fill">{heroContent.title}</span>
   ) : (
+    // Real users: professional masked reveal — each word rises into view from
+    // behind a clean edge AND carries the brand gradient (the Stripe/Linear-style
+    // "gradient masked reveal"). The words are the real headline throughout;
+    // aria-label announces the full title and the words are aria-hidden.
     <motion.span
       key={heroContent.title}
       aria-label={heroContent.title}
-      className="block select-none text-white"
+      className="block select-none"
       initial="hidden"
       animate="visible"
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
+        visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
       }}
     >
       {heroContent.title.split(' ').map((word, wi, words) => (
@@ -207,10 +215,10 @@ export const Hero: React.FC = () => {
             style={{ verticalAlign: 'bottom', paddingBottom: '0.15em', marginBottom: '-0.15em' }}
           >
             <motion.span
-              className="inline-block"
+              className="inline-block hero-title-fill"
               variants={{
                 hidden: { y: '115%' },
-                visible: { y: '0%', transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+                visible: { y: '0%', transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
               }}
             >
               {word}
@@ -223,9 +231,14 @@ export const Hero: React.FC = () => {
   )}
 </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle — fades in just after the title reveal for a sequenced,
+              professional entrance. Skipped during prerender so the crawler
+              snapshot captures it fully visible. */}
           <motion.h3
             style={{ rotateX: headingRotateX, rotateY: headingRotateY, x: headingX, y: headingY }}
+            initial={isPrerender || prefersReducedMotion ? undefined : { opacity: 0, y: 14 }}
+            animate={isPrerender || prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.75, ease: 'easeOut' }}
             className="text-2xl sm:text-3xl md:text-4xl font-medium text-blue-500 mb-6 md:mb-8"
           >
             Your Business on Autopilot
