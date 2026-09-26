@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { GlitchButton } from '../ui/GlitchButton';
 import { Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,8 @@ interface HeroContent {
 export const Hero: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const prefersReducedMotion = useReducedMotion();
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -172,23 +174,71 @@ export const Hero: React.FC = () => {
   }}
   className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.1] max-w-[90vw] md:max-w-5xl mx-auto hero-main-title"
 >
-  {/* The single, real H1 text — the one source of truth for SEO & a11y,
-      always visible so the full headline is present the moment the page loads. */}
-  <span className="relative block select-none text-white">
-    {heroContent.title}
-
-    {/* Decorative one-shot light sweep — real users only. aria-hidden and
-        pointer-events-none; it sits on top of the solid text and never hides
-        it, so the headline stays fully readable at every frame. */}
-    {!isPrerender && (
-      <span aria-hidden="true" className="hero-title-sweep pointer-events-none absolute inset-0" />
-    )}
-  </span>
+  {/* The single, real H1 text — the one source of truth for SEO & a11y.
+      ─ Prerender/crawlers: ONE clean, intact text node (plain white), so the
+        served HTML always contains the exact, readable headline.
+      ─ Real users: the SAME real letters animate into place on arrival — each
+        character rises up and un-blurs in sequence (a clean "assemble" reveal,
+        no random glyphs). The container carries aria-label with the full title
+        and the animated letters are aria-hidden, so screen readers announce the
+        headline once and correctly. */}
+  {isPrerender ? (
+    // Crawler snapshot: one clean, intact, plain-white title.
+    <span className="block select-none text-white">{heroContent.title}</span>
+  ) : prefersReducedMotion ? (
+    // Reduced motion: the same premium gradient look, but no movement.
+    <span className="block select-none hero-title-fill">{heroContent.title}</span>
+  ) : (
+    // Real users: professional masked reveal — each word rises into view from
+    // behind a clean edge AND carries the brand gradient (the Stripe/Linear-style
+    // "gradient masked reveal"). The words are the real headline throughout;
+    // aria-label announces the full title and the words are aria-hidden.
+    <motion.span
+      key={heroContent.title}
+      aria-label={heroContent.title}
+      className="block select-none"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+      }}
+    >
+      {heroContent.title.split(' ').map((word, wi, words) => (
+        <React.Fragment key={wi}>
+          {/* Each word rises up from behind a clean mask (overflow-hidden).
+              paddingBottom + matching negative marginBottom give descenders
+              (g, y, p) room so they are never clipped at rest. */}
+          <span
+            aria-hidden="true"
+            className="inline-block overflow-hidden"
+            style={{ verticalAlign: 'bottom', paddingBottom: '0.15em', marginBottom: '-0.15em' }}
+          >
+            <motion.span
+              className="inline-block hero-title-fill"
+              variants={{
+                hidden: { y: '115%' },
+                visible: { y: '0%', transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
+              }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {wi < words.length - 1 ? ' ' : ''}
+        </React.Fragment>
+      ))}
+    </motion.span>
+  )}
 </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle — fades in just after the title reveal for a sequenced,
+              professional entrance. Skipped during prerender so the crawler
+              snapshot captures it fully visible. */}
           <motion.h3
             style={{ rotateX: headingRotateX, rotateY: headingRotateY, x: headingX, y: headingY }}
+            initial={isPrerender || prefersReducedMotion ? undefined : { opacity: 0, y: 14 }}
+            animate={isPrerender || prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.75, ease: 'easeOut' }}
             className="text-2xl sm:text-3xl md:text-4xl font-medium text-blue-500 mb-6 md:mb-8"
           >
             Your Business on Autopilot
