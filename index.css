@@ -33,3 +33,34 @@ body {
   background-color: #0066FF;
   color: white;
 }
+
+/*
+ * Hero H1 entrance: a one-shot light sweep across the (always-visible) title.
+ * Purely decorative — the real headline text underneath is never hidden, so
+ * crawlers and users read the full title from the first paint. Replaces the old
+ * scramble animation, which rendered the real title transparent and revealed
+ * random glyphs, leaving the heading unreadable to bots rendering the live page.
+ */
+.hero-title-sweep {
+  background-image: linear-gradient(
+    100deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.65) 50%,
+    transparent 65%
+  );
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  background-position: 150% 0;
+  mix-blend-mode: overlay;
+  animation: heroTitleSweep 1.8s ease-out 0.2s 1 both;
+}
+
+@keyframes heroTitleSweep {
+  from { background-position: 150% 0; }
+  to   { background-position: -50% 0; }
+}
+
+/* Respect users who prefer reduced motion — show the title with no sweep. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-sweep { animation: none; }
+}
