@@ -54,6 +54,11 @@ function App() {
     if (isPrerender) return; // No timer needed — already skipped
     const timer = setTimeout(() => {
       setIsLoading(false);
+      // Signal that the brand loader has lifted so entrance animations (e.g. the
+      // hero title reveal) start only once they are actually visible, instead of
+      // playing hidden behind the full-screen LoadingScreen.
+      (window as any).__TF_LOADED__ = true;
+      window.dispatchEvent(new Event('tf:loaded'));
     }, 2200);
 
     return () => clearTimeout(timer);

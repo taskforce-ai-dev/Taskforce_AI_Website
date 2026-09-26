@@ -48,6 +48,33 @@ export const Hero: React.FC = () => {
 
   const [heroContent, setHeroContent] = useState<HeroContent>(fallbackContent);
 
+  // The title reveal must start only AFTER the 2.2s brand LoadingScreen lifts —
+  // otherwise the animation plays hidden behind the full-screen loader and the
+  // user only ever sees the finished, static title. App.tsx sets
+  // window.__TF_LOADED__ / fires 'tf:loaded' when the loader is gone. On a later
+  // client-side navigation back to the homepage the loader does not replay, so
+  // the flag is already set and the reveal runs immediately.
+  const [revealStarted, setRevealStarted] = useState<boolean>(
+    () => typeof window !== 'undefined' && (window as any).__TF_LOADED__ === true
+  );
+
+  useEffect(() => {
+    if (revealStarted) return;
+    if (typeof window !== 'undefined' && (window as any).__TF_LOADED__ === true) {
+      setRevealStarted(true);
+      return;
+    }
+    const onLoaded = () => setRevealStarted(true);
+    window.addEventListener('tf:loaded', onLoaded);
+    // Safety net: if the signal is ever missed, reveal shortly after the loader's
+    // known duration so the title never stays hidden.
+    const fallback = setTimeout(() => setRevealStarted(true), 2600);
+    return () => {
+      window.removeEventListener('tf:loaded', onLoaded);
+      clearTimeout(fallback);
+    };
+  }, [revealStarted]);
+
   useEffect(() => {
     if (isPrerender) {
       setHeroContent(fallbackContent);
@@ -198,7 +225,7 @@ export const Hero: React.FC = () => {
       aria-label={heroContent.title}
       className="block select-none"
       initial="hidden"
-      animate="visible"
+      animate={revealStarted ? 'visible' : 'hidden'}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
@@ -237,8 +264,14 @@ export const Hero: React.FC = () => {
           <motion.h3
             style={{ rotateX: headingRotateX, rotateY: headingRotateY, x: headingX, y: headingY }}
             initial={isPrerender || prefersReducedMotion ? undefined : { opacity: 0, y: 14 }}
-            animate={isPrerender || prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.75, ease: 'easeOut' }}
+            animate={
+              isPrerender || prefersReducedMotion
+                ? undefined
+                : revealStarted
+                ? { opacity: 1, y: 0 }
+                : { opacity: 0, y: 14 }
+            }
+            transition={{ duration: 0.6, delay: 0.9, ease: 'easeOut' }}
             className="text-2xl sm:text-3xl md:text-4xl font-medium text-blue-500 mb-6 md:mb-8"
           >
             Your Business on Autopilot
