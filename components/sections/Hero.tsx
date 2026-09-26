@@ -172,13 +172,14 @@ export const Hero: React.FC = () => {
   }}
   className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.1] max-w-[90vw] md:max-w-5xl mx-auto hero-main-title"
 >
-  {/* The single, real H1 text — the one source of truth for SEO & a11y,
-      always visible so the full headline is present the moment the page loads.
-      Real users get an animated gradient "shine" that sweeps across the actual
-      letters on arrival (the text itself never changes or disappears); the
-      prerender/crawler snapshot keeps plain white text. */}
+  {/* The single, real H1 text — the one source of truth for SEO & a11y. It is
+      ONE intact text node (so it wraps naturally and crawlers read the exact
+      headline). Real users get an animated brand gradient that continuously
+      flows across the letters — clear, professional motion that never changes,
+      hides, or reorders the words. The prerender/crawler snapshot keeps plain
+      white text. */}
   <span
-    className={`block select-none ${isPrerender ? 'text-white' : 'hero-title-shine'}`}
+    className={`block select-none ${isPrerender ? 'text-white' : 'hero-title-gradient'}`}
   >
     {heroContent.title}
   </span>

@@ -35,39 +35,43 @@ body {
 }
 
 /*
- * Hero H1 entrance: an animated gradient "shine" that sweeps a bright cyan
- * highlight across the actual title letters when the page loads. The text is
- * the real headline (correct characters, always present) — only its fill colour
- * animates, so users see clear motion while crawlers still read the full title.
- * Replaces the old scramble animation, which rendered the real title transparent
- * and revealed random glyphs, leaving the heading unreadable to bots.
+ * Hero H1 animation: a brand-coloured gradient that continuously flows across
+ * the title letters, giving smooth, professional motion whenever the page is
+ * open. The heading is a single intact text node with the real, correct words —
+ * only the fill colour animates — so it wraps naturally, screen readers read it
+ * cleanly, and crawlers get the exact headline. This replaces the old scramble
+ * animation, which rendered the real title transparent and revealed random
+ * glyphs, leaving the heading unreadable to bots.
+ *
+ * All gradient stops are light (white / cyan / blue) so the title stays high
+ * contrast on the dark hero background at every point of the animation.
  */
-.hero-title-shine {
+.hero-title-gradient {
   background-image: linear-gradient(
-    110deg,
+    100deg,
     #ffffff 0%,
-    #ffffff 42%,
-    #22d3ee 50%,
-    #ffffff 58%,
+    #7dd3fc 25%,
+    #60a5fa 50%,
+    #7dd3fc 75%,
     #ffffff 100%
   );
-  background-size: 250% 100%;
-  background-position: 150% 0;
+  background-size: 200% auto;
+  background-position: 0% center;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: heroTitleShine 2.4s ease-in-out 0.25s 1 both;
+  animation: heroTitleFlow 6s linear infinite;
 }
 
-@keyframes heroTitleShine {
-  from { background-position: 150% 0; }
-  to   { background-position: -50% 0; }
+@keyframes heroTitleFlow {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
 }
 
-/* Respect users who prefer reduced motion — show a static white title, no shine. */
+/* Respect users who prefer reduced motion — show a static white title. */
 @media (prefers-reduced-motion: reduce) {
-  .hero-title-shine {
+  .hero-title-gradient {
     animation: none;
     background: none;
     -webkit-text-fill-color: #ffffff;
